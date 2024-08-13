@@ -1,18 +1,27 @@
-import React from 'react'
-import banner from "../../public/Banner.png"
+import React from 'react';
+import banner from "../../public/Banner.png";
 
+// The Banner component renders a section with a welcome message, input field, and image.
 function Banner() {
     return (
         <>
+            {/* Container div to structure the banner layout */}
             <div className="max-w-screen-2xl container mx-auto md:px-20 px-4 flex flex-col md:flex-row my-10">
+                
+                {/* Left section containing text and input field */}
                 <div className="w-full md:w-1/2 mt12 md:mt-32 order-2 md:order-1">
                     <div className="space-y-12">
+                        {/* Main heading */}
                         <h1 className='text-4xl font-bold'>
-                            Hello, welcome here to learn somethimng <span className='text-pink-500'>new everyday</span>
+                            Hello, welcome here to learn something <span className='text-pink-500'>new everyday</span>
                         </h1>
+                        
+                        {/* Description paragraph */}
                         <p className="text-xl">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis autem qui iusto doloremque perferendis inventore aut aliquam, voluptas repellendus in fugiat distinctio voluptate eveniet fugit at repellat quidem minus veritatis.
                         </p>
+                        
+                        {/* Email input field with an icon */}
                         <label className="input input-bordered flex items-center gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -27,14 +36,17 @@ function Banner() {
                             <input type="text" className="grow" placeholder="Email" />
                         </label>
                     </div>
+                    {/* Button to get started */}
                     <button className="btn mt-6 btn-secondary">Get Started</button>
                 </div>
+                
+                {/* Right section containing the banner image */}
                 <div className="w-full md:w-1/2 order-1">
                     <img src={banner} className="mt-32 ml-40 h-96" alt="" />
                 </div>
             </div>
         </>
-    )
+    );
 }
 
-export default Banner
+export default Banner;

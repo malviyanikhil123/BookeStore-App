@@ -7,9 +7,16 @@ import Footer from '../components/Footer'
 function Home() {
   return (
     <div>
+      {/* Render the Navbar component */}
       <Navbar/>
+      
+      {/* Render the Banner component */}
       <Banner/>
+      
+      {/* Render the FreeCard component */}
       <FreeCard/>
+      
+      {/* Render the Footer component */}
       <Footer/>
     </div>
   )

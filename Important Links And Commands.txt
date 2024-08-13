@@ -1,0 +1,25 @@
+Frontend Links And Commands 
+
+Links use for Frontend :-
+
+https://daisyui.com/
+https://react-slick.neostack.com/
+https://react-hook-form.com/
+https://tailwindcss.com/
+
+Command for run Frontend :-
+
+npm run dev
+
+Backend Links And Commands 
+
+Links use for Backend :-
+
+https://expressjs.com/
+https://www.npmjs.com/
+https://react-hot-toast.com/
+
+Command for run Backend :-
+
+npm start
+

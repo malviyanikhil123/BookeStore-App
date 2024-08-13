@@ -1,47 +1,51 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import Login from './Login'
-import Logout from './Logout'
-import { useAuth } from '../context/AuthProvider.jsx'
+import Login from './Login' // Import the Login component
+import Logout from './Logout' // Import the Logout component
+import { useAuth } from '../context/AuthProvider.jsx' // Import authentication context
 
 function Navbar() {
 
-    const [authUser, setAuthUser] = useAuth();
+    const [authUser, setAuthUser] = useAuth(); // Access the authenticated user and setter from context
 
+    // State to manage the theme (light or dark)
     const [theme, setTheme] = useState(
-        localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+        localStorage.getItem("theme") ? localStorage.getItem("theme") : "light" // Get theme from local storage or default to light
     )
-    const element = document.documentElement
+    const element = document.documentElement // Reference to the root element
 
+    // Effect to apply theme changes
     useEffect(() => {
         if (theme === "dark") {
-            element.classList.add("dark")
-            localStorage.setItem("theme", "dark")
-            document.body.classList.add("dark")
+            element.classList.add("dark") // Add dark class to root element
+            localStorage.setItem("theme", "dark") // Save theme in local storage
+            document.body.classList.add("dark") // Add dark class to body
         }
         else {
-            element.classList.remove("dark")
-            localStorage.setItem("theme", "light")
-            document.body.classList.remove("dark")
+            element.classList.remove("dark") // Remove dark class from root element
+            localStorage.setItem("theme", "light") // Save theme in local storage
+            document.body.classList.remove("dark") // Remove dark class from body
         }
-    }, [theme])
+    }, [theme]) // Dependency on theme state
 
+    // State to manage sticky navbar
     const [sticky, setSticky] = useState(false)
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 0) {
-                setSticky(true)
+                setSticky(true) // Set sticky to true if scrolled
             }
             else {
-                setSticky(false)
-            }
-            window.addEventListener("scroll", handleScroll)
-            return () => {
-                window.removeEventListener("scroll", handleScroll)
+                setSticky(false) // Set sticky to false if at the top
             }
         }
-    }, [])
+        window.addEventListener("scroll", handleScroll) // Add scroll event listener
+        return () => {
+            window.removeEventListener("scroll", handleScroll) // Cleanup event listener on component unmount
+        }
+    }, []) // Empty dependency array to run once on mount
 
+    // Navigation list
     const NavList = (
         <>
             <li><a href="/">Home</a></li>
@@ -51,14 +55,15 @@ function Navbar() {
         </>
     )
 
-
     return (
         <>
+            {/* Navbar container */}
             <div className={`max-w-screen-2xl container mx-auto md:px-20 px-4 dark:bg-slate-900 dark:text-white fixed top-0 left-0 right-0 ${sticky ? "sticky shadow-md bg-base-200 dark:bg-slate-600 dark:text-white duration-300 transition-all ease-in-out" : ""}`}>
                 <div className="navbar bg-base-100">
                     <div className="navbar-start">
                         <div className="dropdown">
                             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                                {/* Mobile menu button */}
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-5 w-5"
@@ -75,19 +80,20 @@ function Navbar() {
                             <ul
                                 tabIndex={0}
                                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                                {NavList}
+                                {NavList} {/* Render navigation list */}
                             </ul>
                         </div>
-                        <a className="text-2xl font-bold cursor-pointer">BookStore</a>
+                        <a className="text-2xl font-bold cursor-pointer">BookStore</a> {/* Navbar brand */}
                     </div>
                     <div className="navbar-end space-x-3">
                         <div className="navbar-center hidden lg:flex">
                             <ul className="menu menu-horizontal px-1 text-lg">
-                                {NavList}
+                                {NavList} {/* Render navigation list for large screens */}
                             </ul>
                         </div>
                         <div className="hidden md:block">
                             <label className="input input-bordered flex items-center gap-2">
+                                {/* Search input */}
                                 <input type="text" className="grow" placeholder="Search" />
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -102,6 +108,7 @@ function Navbar() {
                             </label>
                         </div>
                         <label className="flex cursor-pointer gap-2">
+                            {/* Theme toggle button */}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -133,11 +140,11 @@ function Navbar() {
                         </label>
                         {
                             authUser ? (
-                                <Logout />
+                                <Logout /> /* Show Logout button if user is authenticated */
                             ) : (
                                 <div className="">
                                     <a className="btn bg-black text-white rounded-full px-7 text-[15px] duration-300 hover:px-9 hover:bg-" onClick={() => document.getElementById("my_modal_3").showModal()}>Login</a>
-                                    <Login />
+                                    <Login /> {/* Show Login component if user is not authenticated */}
                                 </div>
                             )
                         }

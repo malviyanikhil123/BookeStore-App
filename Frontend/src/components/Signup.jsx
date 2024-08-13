@@ -1,23 +1,25 @@
 import React from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useForm } from "react-hook-form"
-import Login from './Login'
-import axios from "axios"
-import toast from 'react-hot-toast'
+import { useForm } from "react-hook-form" // Import useForm for form handling
+import Login from './Login' // Import the Login component
+import axios from "axios" // Import axios for HTTP requests
+import toast from 'react-hot-toast' // Import toast for notifications
 
 function Signup() {
 
-    const location = useLocation()
-    const navigate = useNavigate()
+    const location = useLocation() // Access location from router
+    const navigate = useNavigate() // Access navigate function from router
 
-    const from = location.state?.from?.pathname || "/"
+    const from = location.state?.from?.pathname || "/" // Redirect path after signup, default to home
 
+    // Destructure methods and states from useForm
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm()
 
+    // Function to handle form submission
     const onSubmit = async (data) => {
         const userInfo = {
             fullname: data.fullname,
@@ -27,30 +29,32 @@ function Signup() {
 
         await axios.post("http://localhost:4001/user/signup", userInfo)
             .then((res) => {
-                console.log(res.data);
+                console.log(res.data); // Log response data
                 if (res.data) {
-                    toast.success('signup successfully!')
-                    navigate(from, {replace: true})
+                    toast.success('Signup successfully!') // Show success message
+                    navigate(from, {replace: true}) // Redirect user
                 }
-                localStorage.setItem("User", JSON.stringify(res.data.user))
+                localStorage.setItem("User", JSON.stringify(res.data.user)) // Store user data in local storage
             })
             .catch((err) => {
                 if (err.response) {
-                    console.log(err);
-                    toast.error("Error: " + err.response.data.message);
+                    console.log(err); // Log error
+                    toast.error("Error: " + err.response.data.message); // Show error message
                 }
             })
     }
 
     return (
         <div className='flex h-screen items-center justify-center'>
-            <div id="my_modal_2" >
+            <div id="my_modal_2">
                 <div className="m-8 modal-box">
                     <form method="dialog" onSubmit={handleSubmit(onSubmit)}>
+                        {/* Close button */}
                         <Link to="/" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</Link>
 
                         <h3 className="font-bold text-3xl mb-5 underline">SignUp</h3>
                         <div className="">
+                            {/* Fullname input */}
                             <label className="input input-bordered flex items-center gap-2">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -64,6 +68,7 @@ function Signup() {
                                 {errors.fullname && (<span className='text-sm text-red-500'>This field is required</span>)}
                             </label>
 
+                            {/* Email input */}
                             <label className="input input-bordered flex items-center gap-2 my-8">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -79,6 +84,7 @@ function Signup() {
                                 {errors.email && (<span className='text-sm text-red-500'>This field is required</span>)}
                             </label>
 
+                            {/* Password input */}
                             <label className="input input-bordered flex items-center gap-2 my-2">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -95,10 +101,11 @@ function Signup() {
                             </label>
                         </div>
                         <div className="flex items-center justify-around">
-                            <button className="btn btn-active btn-neutral hover:bg-slate-900 mt-5">Signup</button>
-                            <p className="mt-5">Have account?{" "}
+                            <button className="btn btn-active btn-neutral hover:bg-slate-900 mt-5">Signup</button> {/* Signup button */}
+                            <p className="mt-5">Have an account?{" "}
+                                {/* Login link */}
                                 <a className="underline text-blue-500 cursor-pointer" onClick={() => document.getElementById("my_modal_3").showModal()}>Login</a>
-                                <Login />
+                                <Login /> {/* Login component */}
                             </p>
                         </div>
                     </form>

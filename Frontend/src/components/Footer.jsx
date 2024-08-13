@@ -1,20 +1,29 @@
-import React from 'react'
+import React from 'react';
 
+// Footer component for displaying the footer section of the website
 function Footer() {
     return (
         <>
             <div>
+                {/* Horizontal line separating the footer from the rest of the content */}
                 <hr />
+                
+                {/* Footer content centered and styled with padding */}
                 <footer className="footer footer-center text-base-content rounded p-10">
+                    
+                    {/* Navigation links to different sections of the website */}
                     <nav className="grid grid-flow-col gap-4">
                         <a className="link link-hover">About us</a>
                         <a className="link link-hover">Contact</a>
                         <a className="link link-hover">Jobs</a>
                         <a className="link link-hover">Press kit</a>
                     </nav>
+                    
+                    {/* Social media icons */}
                     <nav>
                         <div className="grid grid-flow-col gap-4">
                             <a>
+                                {/* Twitter icon */}
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -26,6 +35,7 @@ function Footer() {
                                 </svg>
                             </a>
                             <a>
+                                {/* YouTube icon */}
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -37,6 +47,7 @@ function Footer() {
                                 </svg>
                             </a>
                             <a>
+                                {/* Facebook icon */}
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -49,6 +60,8 @@ function Footer() {
                             </a>
                         </div>
                     </nav>
+
+                    {/* Copyright information */}
                     <aside>
                         <p>Copyright © {new Date().getFullYear()} - All right reserved by ACME Industries Ltd</p>
                     </aside>
@@ -58,4 +71,4 @@ function Footer() {
     )
 }
 
-export default Footer
+export default Footer;

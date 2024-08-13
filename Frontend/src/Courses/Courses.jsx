@@ -4,13 +4,16 @@ import Course from '../components/Course'
 import Footer from '../components/Footer'
 
 function Courses() {
-    
   return (
     <>
-    <Navbar/>
-    <Course/>
-    {/* <div className="min-h-screen"></div> */}
-    <Footer/>
+      {/* Render the Navbar component */}
+      <Navbar/>
+      
+      {/* Render the Course component */}
+      <Course/>
+      
+      {/* Render the Footer component */}
+      <Footer/>
     </>
   )
 }
