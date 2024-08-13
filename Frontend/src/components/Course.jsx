@@ -1,9 +1,29 @@
 import React from 'react'
-import list from '../../public/list.json'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Cards from './Cards'
+import axios from "axios"
 
 function Course() {
+
+    const [book, setBook] = useState([])
+
+    const fliterData = book.filter((data) => data.category === "Paid")
+
+    useEffect(() => {
+        const getBook = async () => {
+            try {
+                const res = await axios.get("http://localhost:4001/book")
+                console.log(res.data);
+                setBook(res.data)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getBook()
+    }, [])
+
+
     return (
         <>
             <div className="mt-4 my-3 p-3">
@@ -17,12 +37,12 @@ function Course() {
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis nisi nesciunt itaque veritatis, doloribus atque corrupti nihil quo consectetur cum a soluta, ullam numquam quia consequuntur ut. Nihil amet magni sed? Omnis aspernatur officia commodi consectetur, velit optio sint provident dolorem voluptatum tempore, eligendi ratione eos explicabo dolorum minima saepe.
                         </p>
                         <Link to="/">
-                        <button className="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-700 duration-300 mt-8">Back</button>
+                            <button className="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-700 duration-300 mt-8">Back</button>
                         </Link>
                     </div>
                     <div className="mt-12 grid grid-cols-4 md:grid-cols-2">
                         {
-                            list.map((item) => (
+                            fliterData.map((item) => (
                                 <Cards item={item} key={item.id} />
                             ))
                         }

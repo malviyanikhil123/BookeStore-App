@@ -1,9 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import Login from './Login'
+import axios from "axios"
+import toast from 'react-hot-toast'
 
 function Signup() {
+
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    const from = location.state?.from?.pathname || "/"
 
     const {
         register,
@@ -11,7 +18,29 @@ function Signup() {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => console.log(data)
+    const onSubmit = async (data) => {
+        const userInfo = {
+            fullname: data.fullname,
+            email: data.email,
+            password: data.password
+        }
+
+        await axios.post("http://localhost:4001/user/signup", userInfo)
+            .then((res) => {
+                console.log(res.data);
+                if (res.data) {
+                    toast.success('signup successfully!')
+                    navigate(from, {replace: true})
+                }
+                localStorage.setItem("User", JSON.stringify(res.data.user))
+            })
+            .catch((err) => {
+                if (err.response) {
+                    console.log(err);
+                    toast.error("Error: " + err.response.data.message);
+                }
+            })
+    }
 
     return (
         <div className='flex h-screen items-center justify-center'>
@@ -31,8 +60,8 @@ function Signup() {
                                     <path
                                         d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                                 </svg>
-                                <input type="text" className="grow" placeholder="Username" {...register("username", { required: true })}/>
-                                {errors.username && (<span className='text-sm text-red-500'>This field is required</span>)}
+                                <input type="text" className="grow" placeholder="Username" {...register("fullname", { required: true })} />
+                                {errors.fullname && (<span className='text-sm text-red-500'>This field is required</span>)}
                             </label>
 
                             <label className="input input-bordered flex items-center gap-2 my-8">

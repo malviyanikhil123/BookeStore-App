@@ -9,7 +9,7 @@ function Courses() {
     <>
     <Navbar/>
     <Course/>
-    <div className="min-h-screen"></div>
+    {/* <div className="min-h-screen"></div> */}
     <Footer/>
     </>
   )

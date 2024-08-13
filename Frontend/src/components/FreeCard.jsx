@@ -1,13 +1,30 @@
 import React from 'react'
-import list from '../../public/list.json'
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Cards from './Cards';
+import Slider from "react-slick"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+import { useEffect,useState } from 'react'
+import Cards from './Cards'
+import axios from "axios"
 
 function FreeCard() {
 
-    const fliterData = list.filter((data) => data.category === "Free")
+    const [book, setBook] = useState([])
+
+    const fliterData = book.filter((data) => data.category === "Free") 
+    
+    useEffect(() => {
+     const getBook = async () =>{
+       try {
+        const res = await axios.get ("http://localhost:4001/book")
+        // console.log(res.data);
+        setBook(res.data)
+       } catch (error) {
+        console.log(error);
+       }
+     }
+     getBook()
+    }, [])
+
     var settings = {
         dots: true,
         infinite: false,
